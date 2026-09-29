@@ -23,6 +23,7 @@ def main():
     parser.add_argument('--java', type=Path, default=Path('/tmp/sso-jdk25/bin/java'))
     parser.add_argument('--cache', type=Path, default=Path.home() / '.gradle/caches')
     parser.add_argument('--timeout', type=int, default=180)
+    parser.add_argument('--server', help='Optional disposable localhost server with the SRM QA snow grid')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     run = root / 'build/qa-client' / (time.strftime('%Y%m%d-%H%M%S') + '-' + str(os.getpid()))
@@ -44,6 +45,11 @@ def main():
         if flag in command:
             index = command.index(flag)
             del command[index:index + 2]
+    if args.server:
+        if not args.server.startswith('127.0.0.1:'):
+            raise ValueError('--server must identify a disposable localhost server')
+        command.extend(['--quickPlayMultiplayer', args.server])
+        command.insert(1, '-Dkiwi.qa.world=true')
     for flag, value in [('--gameDir', str(run)), ('--username', 'KiwiClientQA')]:
         command[command.index(flag) + 1] = value
     if command[command.index('--version') + 1] != '26.3':

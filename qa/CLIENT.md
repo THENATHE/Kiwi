@@ -36,3 +36,16 @@ Each run records JAR checksums, the launch command, console output, exit status,
 and a machine-readable result. Offline-account HTTP 401 and Realms errors, plus
 a missing optional system `libflite` narrator library, are reported separately
 as environment diagnostics. Other ERROR/FATAL messages fail the check.
+
+## Optional synchronized snow-world check
+
+Pass `--server 127.0.0.1:PORT` to join a separately running disposable SRM test
+server. The server must contain at least four snow-covered blocks with block
+entities in the region `(-8,118,-8)` through `(8,124,8)`. The SRM server fixture
+leaves a fence, wall, slab, and stairs at x=0,2,4,6, y=120, z=0, with a floor at
+y=119. Teleport the test player `KiwiClientQA` to `3 120 6` on join. The fixture
+looks toward the grid, waits 120 client world ticks, checks that at least four
+snow block entities synchronized, and saves a screenshot before opening the
+configuration screens. Use this mode only with a fresh/copy test world and an
+offline localhost test server. A passing run logs `KIWI_CLIENT_QA_WORLD_PASS`.
+This is a rendering/synchronization smoke check, not exhaustive gameplay QA.

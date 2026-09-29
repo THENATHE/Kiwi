@@ -41,7 +41,13 @@ Validation completed on 2026-09-29:
 - Gradle build, access-widener validation, and all 52 existing JUnit tests pass.
 - The production client JAR loads resources and inventory/effects/rendering
   mixins, opens Kiwi's Cloth Config screen, renders it for 40 ticks, and exits
-  normally. Offline-account authentication and missing optional narrator
+  normally. The same checks also pass with Snow Real Magic installed, including
+  its client mixin targets and a separately rendered SRM configuration screen.
+- A production client joined a disposable server with SRM, synchronized four
+  snow block entities, and rendered them for 120 client ticks. The captured
+  screenshot was inspected: snow-covered fence, wall, slab, and stairs rendered
+  correctly. Both configuration screens then rendered and the client exited 0.
+- Offline-account authentication and missing optional narrator
   library diagnostics are recorded separately.
 - The final production JAR passes isolated dedicated-server startup, resource
   reload, and graceful shutdown with Fabric API and Cloth Config; no logged
